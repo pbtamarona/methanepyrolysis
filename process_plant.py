@@ -418,7 +418,6 @@ class ProcessPlant:
 
         working_shifts_per_year = working_weeks_per_year * working_shifts_per_week
         working_hours_per_year = working_shifts_per_year * 8
-
         self.operators_hired = math.ceil(operators_per_shifts * operating_shifts_per_year / working_shifts_per_year)
         self.operating_labor_costs = self.operators_hired * working_hours_per_year * self.operators_hourly_rate
 
@@ -695,7 +694,7 @@ class ProcessPlant:
         psa_press = plant_specs['psa_press']
 
         # Read the CSV file into a DataFrame
-        df = pd.read_csv(f'csv/sim-{reac_type}-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
+        df = pd.read_csv(f'sim-{reac_type}-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
                          f'-c{round(catwt, 3)}-da{round(deactivation, 2)}-psa{psa_press}.csv')
         data = df.values.T.ravel()
 
@@ -742,7 +741,7 @@ class ProcessPlant:
             cooler3 = Equipment('Cooler-3', 'Fluids', 'Carbon steel', cooler3_area,
                                 'Heat exchanger', 'Double pipe' if cooler3_area < 10 else 'U-tube shell & tube')
             total_heating = (heater1_duty + heater2_duty + reactor_duty) * 1000  # Convert to kW
-            furnace = Equipment('Furnace', 'Mixed', '316 stainless steel', total_heating/0.85, 'Furnace/heater',
+            furnace = Equipment('Furnace', 'Fluids', '316 stainless steel', total_heating/0.85, 'Furnace/heater',
                                 'Pyrolysis furnace')
             pump_flow = max(pump_flow, 0.2)
             pump = Equipment('Pump', 'Fluids', 'Carbon steel', pump_flow, 'Pump')
@@ -757,7 +756,7 @@ class ProcessPlant:
                           heatX3, cooler1, cooler2, cooler3, furnace, cyclone, psa, pump, reactor]
         else:
             total_heating = heater1_duty + heater2_duty + reactor_duty
-            furnace = Equipment('Furnace', 'Mixed', '316 stainless steel',
+            furnace = Equipment('Furnace', 'Electrical', '316 stainless steel',
                                 total_heating/0.9, 'Furnace/heater', 'Electric furnace')
 
             equipments = [comp1, comp2, motor_comp1, motor_comp2, heatX1, cooler1, cooler2, furnace, cyclone, psa, reactor]
@@ -794,9 +793,9 @@ class ProcessPlant:
         psa_press = plant_specs['psa_press']
 
         # Read the CSV files into DataFrames
-        pfr = pd.read_csv(f'csv/sim-PFR-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
+        pfr = pd.read_csv(f'sim-PFR-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
                           f'-c{round(catwt, 3)}-da{round(deactivation, 2)}-psa{psa_press}.csv')
-        cstr = pd.read_csv(f'csv/sim-CSTR-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
+        cstr = pd.read_csv(f'sim-CSTR-{plant_capacity}TPD-{heat_source}-t{reac_temp}-p{round(reac_press, 3)}'
                            f'-c{round(catwt, 3)}-da{round(deactivation, 2)}-psa{psa_press}.csv')
 
         pfr = pfr.values.T.ravel()
@@ -848,7 +847,7 @@ class ProcessPlant:
             cooler3 = Equipment('Cooler-3', 'Fluids', 'Carbon steel', cooler3_area,
                                 'Heat exchanger', 'Double pipe' if cooler3_area < 10 else 'U-tube shell & tube')
             total_heating = (heater1_duty + heater2_duty + reactor_duty) * 1000  # Convert to kW
-            furnace = Equipment('Furnace', 'Mixed', '316 stainless steel', total_heating/0.85, 'Furnace/heater',
+            furnace = Equipment('Furnace', 'Fluids', '316 stainless steel', total_heating/0.85, 'Furnace/heater',
                                 'Pyrolysis furnace')
             pump_flow = max(pump_flow, 0.2)
             pump = Equipment('Pump', 'Fluids', 'Carbon steel', pump_flow, 'Pump')
@@ -863,7 +862,7 @@ class ProcessPlant:
                               heatX3, cooler1, cooler2, cooler3, furnace, cyclone, psa, pump, reactor]
         else:
             total_heating = heater1_duty + heater2_duty + reactor_duty
-            furnace = Equipment('Furnace', 'Mixed', '316 stainless steel',
+            furnace = Equipment('Furnace', 'Electrical', '316 stainless steel',
                                 total_heating/0.9, 'Furnace/heater', 'Electric furnace')
 
             equipments = [comp1, comp2, motor_comp1, motor_comp2, heatX1, cooler1, cooler2, furnace, cyclone, psa, reactor]

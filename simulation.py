@@ -578,7 +578,7 @@ def run_scenario(sim_config):
     Returns:
     tuple: A tuple containing the deactivation factor, catalyst rate, and residence time.
     """
-    deactivation_factor, cat_rate, residence_time = 0, 0, 0
+    deactivation, cat_rate, tres = 0, 0, 0
 
     # Initialize the Aspen simulation
     aspen, num_reacs, p_drop = initialize_simulation(sim_config)
@@ -627,16 +627,16 @@ def run_scenario(sim_config):
     press = sim_config['reactor']['pressure']
     catwt = sim_config['catalyst']['weight']
     psa_press = sim_config['comp2_pressure']
-    multiplier = sim_config['multiplier']
+    # multiplier = sim_config['multiplier']
     if sim_config['mode']['type'] == 'constant_rate':
-        file_name = (f'csv/sim-{type}-{capacity}TPD-{heat_source}-t{temp}-p{round(press, 3)}'
+        file_name = (f'sim-{type}-{capacity}TPD-{heat_source}-t{temp}-p{round(press, 3)}'
                      f'-c{round(catwt, 1)}-cr{round(cat_rate, 3)}-psa{psa_press}.csv')
     elif sim_config['mode']['type'] == 'constant_da':
-        file_name = (f'csv/sim-{type}-{capacity}TPD-{heat_source}-t{temp}-p{round(press, 3)}'
+        file_name = (f'sim-{type}-{capacity}TPD-{heat_source}-t{temp}-p{round(press, 3)}'
                      f'-c{round(catwt, 1)}-da{round(deactivation, 2)}-psa{psa_press}.csv')
 
     # Save the results to a CSV file
     df = pd.DataFrame({key: arrays[key] for key in result_keys})
     df.to_csv(file_name, mode='w', index=False)
 
-    return deactivation, cat_rate, residence_time
+    return deactivation, cat_rate, tres

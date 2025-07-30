@@ -295,7 +295,7 @@ def isothermal_cstr(sim_config, Fch4_in, Fh2_in, p_drop, cat_wt, init_guess, ver
         Ph2 = press - Pch4
 
         particle_fractions, time_in_reactor = RTD(tres)
-        average_a = np.sum(deactivation(temp, Pch4, Ph2, time_in_reactor, da_constants)*particle_fractions)
+        average_a = float(np.sum(deactivation(temp, Pch4, Ph2, time_in_reactor, da_constants)*particle_fractions))
 
         if verbose:
             log(f"Simulation complete: a = {average_a:.4f}, Pch4 = {Pch4 / 1e5:.3f} bar, Ph2 = {Ph2 / 1e5:.3f} bar")
@@ -469,7 +469,7 @@ def isothermal_pfr(sim_config, Fch4_in, Fh2_in, p_drop, cat_wt, init_guess, n=50
             if verbose and i % 100 == 0:
                 log(f"[Step {i}/{n}] a = {a[i]:.4f}, Pch4 = {Pch4 / 1e5:.3f} bar, Ph2 = {Ph2 / 1e5:.3f} bar")
 
-        return Fch4_out, Fh2_out, Fc_out, Pch4, Ph2, np.average(a)
+        return Fch4_out, Fh2_out, Fc_out, Pch4, Ph2, float(np.average(a)), tres
 
     # Mode: constant catalyst rate
     if mode_type == 'constant_rate':
@@ -484,7 +484,7 @@ def isothermal_pfr(sim_config, Fch4_in, Fh2_in, p_drop, cat_wt, init_guess, n=50
 
         while error > 0.001:
 
-            Fch4_out, Fh2_out, Fc_out, Pch4, Ph2, average_a = simulate(cat_rate, Fch4_in, Fh2_in, temp,
+            Fch4_out, Fh2_out, Fc_out, Pch4, Ph2, average_a, tres = simulate(cat_rate, Fch4_in, Fh2_in, temp,
                                                                                        press, p_drop, r_constants,
                                                                                        da_constants)
             print(f"Running isothermal PFR model. DA:{average_a:.4g}; CatRate:{cat_rate:.4g}", end='\r', flush=True)

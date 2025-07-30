@@ -1,54 +1,5 @@
 from cost_correlations import *
 
-def create_equipment_list(comp1_power, comp2_power, turb1_power, heatX1_area, heatX2_area, heatX3_area,
-                          cooler1_area, cooler2_area, cooler3_area, heater1_duty, reactor_duty,
-                          cyclone_volumetric, psa_mole_flow, pump_flow):
-    # Compressors
-    comp1 = Equipment('Comp-1', 'Fluids', 'Carbon steel', comp1_power, 'Compressor', 'Centrifugal')
-    comp2 = Equipment('Comp-2', 'Fluids', 'Carbon steel', comp2_power, 'Compressor', 'Centrifugal')
-
-    # Motors
-    motor_comp1 = Equipment('Motor-1', 'Electrical', 'Carbon steel', comp1_power, 'Motor/generator', 'Totally enclosed')
-    motor_comp2 = Equipment('Motor-2', 'Electrical', 'Carbon steel', comp2_power, 'Motor/generator', 'Totally enclosed')
-
-    # Turbines
-    turb1 = Equipment('Turb-1', 'Fluids', 'Carbon steel', -turb1_power, 'Turbine', 'Condensing steam')
-
-    # Generators
-    generator_turb1 = Equipment('Gen-1', 'Electrical', 'Carbon steel', -turb1_power, 'Motor/generator',
-                                'Totally enclosed')
-
-    # Heat Exchangers
-    heatX1 = Equipment('HeatX-1', 'Fluids', 'Carbon steel', heatX1_area, 'Heat exchanger', 'U-tube shell & tube')
-    heatX2 = Equipment('HeatX-2', 'Fluids', 'Carbon steel', heatX2_area, 'Heat exchanger', 'U-tube shell & tube')
-    heatX3 = Equipment('HeatX-3', 'Fluids', 'Carbon steel', heatX3_area, 'Heat exchanger', 'U-tube shell & tube')
-
-    # Cooler Heat Exchangers
-    cooler1 = Equipment('Cooler-1', 'Fluids', 'Carbon steel', cooler1_area, 'Heat exchanger', 'U-tube shell & tube')
-    cooler2 = Equipment('Cooler-2', 'Fluids', 'Carbon steel', cooler2_area, 'Heat exchanger', 'U-tube shell & tube')
-    cooler3 = Equipment('Cooler-3', 'Fluids', 'Carbon steel', cooler3_area, 'Heat exchanger', 'U-tube shell & tube')
-
-    # Heater / Furnace / Reactor
-    heater1 = Equipment('Heater-1', 'Fluids', 'Carbon steel', heater1_duty, 'Furnace/heater', 'Cylindrical furnace')
-    reactor_furnace = Equipment('Reactor', 'Mixed', 'Carbon steel', reactor_duty * 1000, 'Reactor', 'Pyrolysis furnace')
-
-    # Others
-    cyclone = Equipment('Cyclone', 'Mixed', 'Carbon steel', cyclone_volumetric, 'Cyclone')
-    psa = Equipment('PSA', 'Fluids', 'Carbon steel', psa_mole_flow, 'PSA')
-    pump = Equipment('Pump', 'Fluids', 'Carbon steel', pump_flow, 'Pump')
-
-    # List of all equipment
-    equipments = [
-        comp1, comp2, motor_comp1, motor_comp2,
-        turb1, generator_turb1,
-        heatX1, heatX2, heatX3,
-        cooler1, cooler2, cooler3,
-        heater1, reactor_furnace,
-        cyclone, psa, pump
-    ]
-
-    return equipments
-
 class Equipment:
     process_factors = {
         'Solids': {'fer': 0.6, 'fp': 0.2, 'fi': 0.2, 'fel': 0.15, 'fc': 0.2, 'fs': 0.1, 'fl': 0.05},

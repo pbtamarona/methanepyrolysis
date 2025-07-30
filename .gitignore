@@ -1,0 +1,13 @@
+Lumbers.ipynb
+catalysts.py
+pr_eos.py
+reactor_models_ver2.py
+reactor_trial.ipynb
+__pycache__/catalysts.cpython-313.pyc
+__pycache__/cost_correlations.cpython-313.pyc
+__pycache__/equipment.cpython-313.pyc
+__pycache__/pr_eos.cpython-313.pyc
+__pycache__/process_plant.cpython-313.pyc
+__pycache__/reactor_models_ver2.cpython-313.pyc
+__pycache__/reactor_models.cpython-313.pyc
+__pycache__/simulation.cpython-313.pyc
